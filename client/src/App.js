@@ -3,13 +3,16 @@ import {Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
 import recipes from './components/images/recipes.jpg'
 import Recipes from './components/Recipes/recipes';
 import Form from './components/Form/form';
+import useStyles from './styles'
 
 const App = () => {
+    const classes = useStyles();
+
     return(
         <Container>
-            <AppBar position='static' color='inherit'>
-                <Typography variant='h2' align='center' >Healthy Recipes</Typography>
-                <img src={recipes} alt='recipes' height='60' />
+            <AppBar className={classes.appBar} position='static' color='inherit'>
+                <Typography className={classes.heading} variant='h2' align='center' >Healthy Recipes</Typography>
+                <img className={classes.image} src={recipes} alt='recipes' height='60' />
             </AppBar>
             <Grow in>
                 <Container>
