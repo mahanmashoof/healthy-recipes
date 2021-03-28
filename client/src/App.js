@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
 import recipes from './components/images/recipes.jpg'
 import Recipes from './components/Recipes/recipes';
 import Form from './components/Form/form';
 import useStyles from './styles'
+import {useDispatch} from 'react-redux';
+//import actions to dispatch them:
+import {getRecipes} from './actions/recipes';
 
 const App = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getRecipes());
+    }, [dispatch]);
 
     return(
         <Container>

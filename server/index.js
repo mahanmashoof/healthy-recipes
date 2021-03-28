@@ -6,11 +6,11 @@ import recipeRoutes from './routes/recipes.js';
 
 const app = express();
 
-app.use('/recipes', recipeRoutes); //defaults /recipes for methods
-
 app.use(bodyParser.json({limit: '30mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
+
+app.use('/recipes', recipeRoutes); //defaults /recipes for methods
 
 //connect mongoose
 const CONNECTION_URL = 'mongodb+srv://mahan31:mahan31@cluster0.rmop3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
