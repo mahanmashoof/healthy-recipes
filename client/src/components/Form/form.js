@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useStyles from "./styles";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
+import {useDispatch} from 'react-redux';
+import {createRecipe} from '../../actions/recipes'
 
 function Form() {
   const [recipeData, setRecipeData] = useState({
@@ -13,8 +15,12 @@ function Form() {
   });
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createRecipe(recipeData));
+  };
 
   const clear = () => {};
 
