@@ -2,6 +2,7 @@ import React from "react";
 import Recipe from "./Recipe/recipe";
 import useStyles from './styles'
 import {useSelector} from 'react-redux';
+import { Grid, CircularProgress } from '@material-ui/core';
 
 function Recipes() {
   const classes = useStyles();
@@ -10,11 +11,17 @@ function Recipes() {
   console.log(recipes);
 
   return (
-    <div>
-      <h1>RECIPES</h1>
-      <Recipe />
-      <Recipe />
-    </div>
+    !recipes.length ? <CircularProgress /> : (
+    <Grid className={classes.container} container alignItems='stretch' spacing={3} >
+      {
+        recipes.map((recipe) => (
+          <Grid key={recipe._id} item xs={12} sm={6}>
+            <Recipe recipe={recipe} />
+          </Grid>
+        ))
+      }
+    </Grid>
+    )
   );
 }
 
