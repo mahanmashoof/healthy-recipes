@@ -12,9 +12,13 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
+import {useDispatch} from 'react-redux';
+import {deleteRecipe} from '../../../actions/recipes'
 
-function Recipe({ recipe }) {
+function Recipe({ recipe, setCurrentId }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -29,7 +33,7 @@ function Recipe({ recipe }) {
         </Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button style={{ color: "white" }} size="small" onClick={() => {}}>
+        <Button style={{ color: "white" }} size="small" onClick={() => setCurrentId(recipe._id)}>
           <MoreHorizIcon fontSize="default" />
         </Button>
       </div>
@@ -38,8 +42,11 @@ function Recipe({ recipe }) {
           {recipe.ingredients.map((ingredient) => `-${ingredient} `)}
         </Typography>
       </div>
+      <Typography className={classes.title} variant="h5" gutterBottom>
+          {recipe.title}
+        </Typography>
       <CardContent>
-        <Typography className={classes.title} variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           {recipe.description}
         </Typography>
       </CardContent>
@@ -49,7 +56,7 @@ function Recipe({ recipe }) {
               Like
               {recipe.likeCount}
           </Button>
-          <Button size='small' color='primary' onClick={() => {}}>
+          <Button size='small' color='primary' onClick={() => dispatch(deleteRecipe(recipe._id))}>
               <DeleteIcon fontSize='small' />
               Delete
           </Button>

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStyles from "./styles";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import {useDispatch} from 'react-redux';
-import {createRecipe} from '../../actions/recipes'
+import { useDispatch } from "react-redux";
+import { createRecipe, updateRecipe } from "../../actions/recipes";
+import {useSelector} from 'react-redux';
 
-function Form() {
+function Form({ currentId, setCurrentId }) {
   const [recipeData, setRecipeData] = useState({
     creator: "",
     title: "",
@@ -14,15 +15,35 @@ function Form() {
     selectedFile: "",
   });
 
+  const recipe = useSelector((state) => currentId ? state.recipes.find((r) => r._id === currentId) : null);
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if(recipe) setRecipeData(recipe);
+  }, [recipe]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createRecipe(recipeData));
+    if (currentId) {
+      dispatch(updateRecipe(currentId, recipeData));
+    } else {
+      dispatch(createRecipe(recipeData));
+    }
+    clear();
   };
 
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setRecipeData({
+      creator: "",
+      title: "",
+      description: "",
+      ingredients: "",
+      selectedFile: "",
+    })
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -32,7 +53,7 @@ function Form() {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Recipe</Typography>
+        <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Recipe</Typography>
         <TextField
           name="creator"
           variant="outlined"

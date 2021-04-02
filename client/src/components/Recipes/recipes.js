@@ -4,7 +4,7 @@ import useStyles from './styles'
 import {useSelector} from 'react-redux';
 import { Grid, CircularProgress } from '@material-ui/core';
 
-function Recipes() {
+function Recipes({setCurrentId}) {
   const classes = useStyles();
   const recipes = useSelector((state) => state.recipes);
 
@@ -16,7 +16,7 @@ function Recipes() {
       {
         recipes.map((recipe) => (
           <Grid key={recipe._id} item xs={12} sm={6}>
-            <Recipe recipe={recipe} />
+            <Recipe recipe={recipe} setCurrentId={setCurrentId} />
           </Grid>
         ))
       }
