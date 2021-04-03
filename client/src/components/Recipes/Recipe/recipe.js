@@ -13,7 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import {useDispatch} from 'react-redux';
-import {deleteRecipe} from '../../../actions/recipes'
+import {deleteRecipe, likeRecipe} from '../../../actions/recipes'
 
 function Recipe({ recipe, setCurrentId }) {
   const classes = useStyles();
@@ -51,7 +51,7 @@ function Recipe({ recipe, setCurrentId }) {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-          <Button size='small' color='primary' onClick={() => {}}>
+          <Button size='small' color='primary' onClick={() => dispatch(likeRecipe(recipe._id))}>
               <ThumbUpAltIcon fontSize='small' />
               Like
               {recipe.likeCount}

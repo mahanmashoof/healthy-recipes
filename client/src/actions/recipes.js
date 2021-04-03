@@ -36,3 +36,12 @@ export const deleteRecipe = (id) => async (dispatch) => {
     console.log(error);
   }
 }
+
+export const likeRecipe = (id) => async (dispatch) => {
+  try {
+    const {data} = await api.likeRecipe(id);
+    dispatch({type: 'LIKE', payload: data});
+  } catch (error) {
+    console.log(error);
+  }
+}
