@@ -46,19 +46,19 @@ function Recipe({ recipe, setCurrentId }) {
           {recipe.title}
         </Typography>
       <CardContent>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="body2" color='textSecondary' component='p'>
           {recipe.description}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
           <Button size='small' color='primary' onClick={() => dispatch(likeRecipe(recipe._id))}>
               <ThumbUpAltIcon fontSize='small' />
-              Like
+              &nbsp; Like &nbsp;
               {recipe.likeCount}
           </Button>
           <Button size='small' color='primary' onClick={() => dispatch(deleteRecipe(recipe._id))}>
               <DeleteIcon fontSize='small' />
-              Delete
+              &nbsp; Delete &nbsp;
           </Button>
       </CardActions>
     </Card>

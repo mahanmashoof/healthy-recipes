@@ -81,7 +81,7 @@ function Form({ currentId, setCurrentId }) {
           fullWidth
           value={recipeData.ingredients}
           onChange={(e) =>
-            setRecipeData({ ...recipeData, ingredients: e.target.value })
+            setRecipeData({ ...recipeData, ingredients: e.target.value.split(',') })
           }
         />
         <TextField
