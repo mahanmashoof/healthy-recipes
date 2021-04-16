@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import recipeRoutes from './routes/recipes.js';
 import dotenv from 'dotenv';
+import userRoutes from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
 
 app.use('/recipes', recipeRoutes); //defaults /recipes for methods
+app.use('/user', userRoutes);
 
 //connect mongoose
 const PORT = process.env.PORT || 5000;

@@ -6,9 +6,9 @@ const recipeSchema = mongoose.Schema({
     description: String,
     selectedFile: String,
     creator: String,
-    likeCount: {
-        type: Number,
-        default: 0
+    likes: {
+        type: [String],
+        default: []
     },
     createdAt: {
         type: Date,
