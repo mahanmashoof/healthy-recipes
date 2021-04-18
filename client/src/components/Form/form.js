@@ -8,7 +8,6 @@ import {useSelector} from 'react-redux';
 
 function Form({ currentId, setCurrentId }) {
   const [recipeData, setRecipeData] = useState({
-    creator: "",
     title: "",
     description: "",
     ingredients: "",
@@ -20,6 +19,8 @@ function Form({ currentId, setCurrentId }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   useEffect(() => {
     if(recipe) setRecipeData(recipe);
   }, [recipe]);
@@ -27,9 +28,9 @@ function Form({ currentId, setCurrentId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
-      dispatch(updateRecipe(currentId, recipeData));
+      dispatch(updateRecipe(currentId, {...recipeData, name: user?.result?.name}));
     } else {
-      dispatch(createRecipe(recipeData));
+      dispatch(createRecipe({...recipeData, name: user?.result?.name}));
     }
     clear();
   };
@@ -37,13 +38,20 @@ function Form({ currentId, setCurrentId }) {
   const clear = () => {
     setCurrentId(null);
     setRecipeData({
-      creator: "",
       title: "",
       description: "",
       ingredients: "",
       selectedFile: "",
     })
   };
+
+  if(!user?.result?.name) {
+    return(
+      <Paper className={classes.paper}>
+        <Typography variant='h6' align='center'>To create and like other recipes, please log in first</Typography>
+      </Paper>
+    )
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -54,16 +62,6 @@ function Form({ currentId, setCurrentId }) {
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Recipe</Typography>
-        <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={recipeData.creator}
-          onChange={(e) =>
-            setRecipeData({ ...recipeData, creator: e.target.value })
-          }
-        />
         <TextField
           name="title"
           variant="outlined"

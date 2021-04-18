@@ -13,7 +13,8 @@ const recipeSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
-    }
+    },
+    name: String
 })
 
 const RecipeDescription = mongoose.model('RecipeDescription', recipeSchema);
