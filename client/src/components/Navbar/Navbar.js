@@ -4,6 +4,7 @@ import recipes from "../images/recipes.jpg";
 import useStyles from "./styles";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
   const classes = useStyles();
@@ -11,11 +12,19 @@ const Navbar = () => {
   const history = useHistory();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  
   useEffect(() => {
-    //const token = user?.token
+    const token = user?.token;
+
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]); //set the user when location changes
+  
   const logout = () => {
     dispatch({type: 'LOGOUT'})
     history.push('/')

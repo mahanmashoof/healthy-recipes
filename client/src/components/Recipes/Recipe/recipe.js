@@ -58,6 +58,7 @@ function Recipe({ recipe, setCurrentId }) {
         className={classes.media}
         image={recipe.selectedFile}
         title={recipe.title}
+        src={''}
       />
       <div className={classes.overlay}>
         <Typography variant="h6">{recipe.name}</Typography>
